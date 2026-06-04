@@ -1,0 +1,14 @@
+{
+  "repo": "washington-university-in-st-louis",
+  "feeds": [
+    {
+      "source": "https://source.washu.edu/",
+      "feed_url": "https://source.washu.edu/feed/",
+      "title": "The Source | Washington University in St. Louis",
+      "saved": 0,
+      "method": "none"
+    }
+  ],
+  "post_count": 0,
+  "fetched": "2026-06-03T00:00:00Z"
+}

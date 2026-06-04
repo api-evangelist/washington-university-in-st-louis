@@ -1,0 +1,69 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "washu": "https://data.wustl.edu/api-portal/#",
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "datacite": "http://datacite.org/schema/kernel-4/",
+    "oai": "http://www.openarchives.org/OAI/2.0/",
+    "name": "schema:name",
+    "url": "schema:url",
+    "description": "schema:description",
+    "logo": "schema:logo",
+    "sameAs": "schema:sameAs",
+    "department": "schema:department",
+    "parentOrganization": "schema:parentOrganization",
+    "CollegeOrUniversity": "schema:CollegeOrUniversity",
+    "EducationalOrganization": "schema:EducationalOrganization",
+    "Library": "schema:Library",
+    "Dataset": "schema:Dataset",
+    "identifier": "schema:identifier",
+    "datePublished": "schema:datePublished",
+    "creator": "schema:creator",
+    "license": "schema:license",
+    "distribution": "schema:distribution",
+    "api": {
+      "@id": "washu:api",
+      "@type": "@id"
+    },
+    "developerPortal": {
+      "@id": "washu:developerPortal",
+      "@type": "@id"
+    },
+    "metadataFormat": "washu:metadataFormat",
+    "oaiBaseURL": {
+      "@id": "oai:baseURL",
+      "@type": "@id"
+    }
+  },
+  "@type": "CollegeOrUniversity",
+  "@id": "https://wustl.edu",
+  "name": "Washington University in St. Louis",
+  "url": "https://wustl.edu",
+  "description": "Private research university in St. Louis, Missouri, operating an enterprise API program (Data at WashU) via MuleSoft Anypoint Exchange and a Digital Commons Data research repository with an OAI-PMH endpoint.",
+  "sameAs": [
+    "https://github.com/wustl",
+    "https://www.linkedin.com/school/washington-university-in-st-louis/"
+  ],
+  "developerPortal": "https://data.wustl.edu/api-portal/",
+  "department": {
+    "@type": "Library",
+    "name": "Bernard Becker Medical Library",
+    "url": "https://becker.wustl.edu/",
+    "parentOrganization": {
+      "@type": "EducationalOrganization",
+      "name": "Washington University School of Medicine in St. Louis"
+    },
+    "api": {
+      "@type": "Dataset",
+      "name": "Digital Commons Data@Becker",
+      "url": "https://digitalcommonsdata.wustl.edu/",
+      "description": "Institutional research data repository on the Elsevier Digital Commons Data (Mendeley Data) platform, exposing an OAI-PMH 2.0 metadata harvesting endpoint.",
+      "oaiBaseURL": "https://digitalcommonsdata.wustl.edu/oai",
+      "metadataFormat": [
+        "oai_dc",
+        "datacite"
+      ]
+    }
+  }
+}
