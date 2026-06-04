@@ -1,0 +1,51 @@
+---
+name: Washington University in St. Louis
+description: Washington University in St. Louis public developer/API footprint review for APIs.json cataloging.
+url: https://raw.githubusercontent.com/api-evangelist/washington-university-in-st-louis/refs/heads/main/review.yml
+created: '2026-06-03'
+modified: '2026-06-03'
+reviews:
+  - date: '2026-06-03'
+    rating: 2
+    summary: >-
+      WashU runs a real enterprise API program via MuleSoft Anypoint Exchange
+      ("Data at WashU") covering Person, Financial, Supplier, Location,
+      Academic, and Organization domains, but access is gated and requires a
+      ServiceNow request limited to WashU integrators — no open public
+      endpoints or sign-up. The Becker School of Medicine Digital Commons Data
+      repository (Elsevier/Mendeley Data) exposes a live OAI-PMH endpoint and
+      an API docs page that resolve publicly. The GitHub org github.com/wustl
+      exists but holds only two forked research repos. No public open-data
+      portal, no documented course/SIS API was confirmed. All listed entries
+      reflect verified URLs; no endpoints were fabricated.
+    endpoints:
+      - url: https://data.wustl.edu/api-portal/
+        status: 200
+        note: Data at WashU integrations/API portal overview; access gated.
+      - url: https://data.wustl.edu/api-portal/api-portal-anypoint-access/
+        status: 200
+        note: Describes ServiceNow access request process for WashU APIs.
+      - url: https://data.wustl.edu/api-portal/api-portal-how-to-documents/
+        status: 200
+        note: How-to help docs for Anypoint Exchange and Postman.
+      - url: https://anypoint.mulesoft.com/exchange/portals/wustl/
+        status: 200
+        note: WashU MuleSoft Anypoint Exchange portal landing page.
+      - url: https://digitalcommonsdata.wustl.edu/api/docs/
+        status: 200
+        note: Digital Commons Data@Becker API docs page (Elsevier platform).
+      - url: https://digitalcommonsdata.wustl.edu/oai?verb=Identify
+        status: 200
+        note: Working OAI-PMH metadata endpoint for research repository.
+      - url: https://github.com/wustl
+        status: 200
+        note: Official GitHub org; only two forked research repositories.
+      - url: https://wustl.edu
+        status: 200
+        note: Official university website.
+      - url: https://courses.wustl.edu/Semester/OpenCourses.aspx
+        status: 200
+        note: Open/closed course listing web app; no documented public API.
+      - url: https://www.linkedin.com/school/washington-university-in-st-louis/
+        status: 999
+        note: LinkedIn school page (999 = LinkedIn anti-bot, page exists).

@@ -1,0 +1,87 @@
+---
+aid: washington-university-in-st-louis
+name: Washington University in St. Louis
+description: >-
+  Washington University in St. Louis (WashU) is a private research university
+  in St. Louis, Missouri, ranked #171 in the QS World University Rankings 2025.
+  Its public developer footprint is modest: WashU operates an enterprise API
+  program ("Data at WashU") delivered through MuleSoft Anypoint Exchange,
+  exposing institutional APIs (Person, Financial, Supplier, Location, Academic,
+  Organization) that are gated and require access requests through ServiceNow
+  for WashU integrators rather than open public consumption. The Becker Medical
+  Library School of Medicine runs a Digital Commons Data (Elsevier/Mendeley
+  Data) research repository that exposes an OAI-PMH endpoint and API docs. Most
+  other surfaces (course catalog, registrar) are web applications rather than
+  documented public APIs.
+type: Index
+position: Consumer
+access: 3rd-Party
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/washington-university-in-st-louis/refs/heads/main/apis.yml
+tags:
+  - Education
+  - Higher Education
+  - University
+  - Research
+  - United States
+  - MuleSoft
+  - OAI-PMH
+created: '2026-06-03'
+modified: '2026-06-03'
+specificationVersion: '0.19'
+apis:
+  - aid: washington-university-in-st-louis:enterprise-apis
+    name: WashU Enterprise Integration APIs (MuleSoft Anypoint)
+    description: >-
+      Institutional integration APIs published via MuleSoft Anypoint Exchange
+      ("WashU API Portal"), covering Person, Financial, Supplier, Location,
+      Academic, and Organization data domains. Access is gated: integrators
+      must request access through ServiceNow and are drawn from the WashU
+      community rather than the open public. Endpoints and specifications are
+      documented in Anypoint Exchange and worked with via Postman.
+    humanURL: https://data.wustl.edu/api-portal/
+    tags: [ Integration, Enterprise, MuleSoft, Identity, Finance, Gated ]
+    properties:
+      - type: Documentation
+        url: https://data.wustl.edu/api-portal/
+      - type: Documentation
+        url: https://data.wustl.edu/api-portal/api-portal-how-to-documents/
+      - type: SignUp
+        url: https://data.wustl.edu/api-portal/api-portal-anypoint-access/
+      - type: DeveloperPortal
+        url: https://anypoint.mulesoft.com/exchange/portals/wustl/
+  - aid: washington-university-in-st-louis:digital-commons-data
+    name: Digital Commons Data@Becker (Research Repository)
+    description: >-
+      The Becker Medical Library / School of Medicine research data repository
+      runs on the Elsevier Digital Commons Data (Mendeley Data) platform. It
+      publishes an API docs page and a working OAI-PMH metadata harvesting
+      endpoint for the institutional research dataset collection.
+    humanURL: https://digitalcommonsdata.wustl.edu/api/docs/
+    baseURL: https://digitalcommonsdata.wustl.edu/oai
+    tags: [ Research Data, Repository, OAI-PMH, Library, School of Medicine ]
+    properties:
+      - type: Documentation
+        url: https://digitalcommonsdata.wustl.edu/api/docs/
+      - type: Documentation
+        url: https://digitalcommonsdata.wustl.edu/oai?verb=Identify
+common:
+  - type: Website
+    url: https://wustl.edu
+  - type: GitHub
+    url: https://github.com/wustl
+  - type: LinkedIn
+    url: https://www.linkedin.com/school/washington-university-in-st-louis/
+  - type: DeveloperPortal
+    url: https://data.wustl.edu/api-portal/
+  - type: Plans
+    url: plans/washington-university-in-st-louis-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/washington-university-in-st-louis-rate-limits.yml
+  - type: FinOps
+    url: finops/washington-university-in-st-louis-finops.yml
+  - type: Review
+    url: review.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
