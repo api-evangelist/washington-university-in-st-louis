@@ -46,7 +46,7 @@ apis:
         url: https://data.wustl.edu/api-portal/
       - type: Documentation
         url: https://data.wustl.edu/api-portal/api-portal-how-to-documents/
-      - type: SignUp
+      - type: Signup
         url: https://data.wustl.edu/api-portal/api-portal-anypoint-access/
       - type: DeveloperPortal
         url: https://anypoint.mulesoft.com/exchange/portals/wustl/
