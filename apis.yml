@@ -66,6 +66,8 @@ apis:
       - type: Documentation
         url: https://digitalcommonsdata.wustl.edu/oai?verb=Identify
 common:
+  - type: DomainSecurity
+    url: security/washington-university-in-st-louis-domain-security.yml
   - type: Website
     url: https://wustl.edu
   - type: GitHub
