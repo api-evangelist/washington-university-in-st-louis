@@ -14,9 +14,21 @@ description: >-
   other surfaces (course catalog, registrar) are web applications rather than
   documented public APIs.
 type: Index
+accessModel:
+  pricing: free
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Free
+  confidence: medium
+  source:
+  - plans
+  generated: '2026-07-22'
+  method: derived
 position: Consumer
 access: 3rd-Party
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/washington-university-in-st-louis.png
 url: https://raw.githubusercontent.com/api-evangelist/washington-university-in-st-louis/refs/heads/main/apis.yml
 tags:
   - Education
