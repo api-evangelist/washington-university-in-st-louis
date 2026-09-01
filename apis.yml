@@ -1,69 +1,210 @@
 ---
 aid: washington-university-in-st-louis
 name: Washington University in St. Louis
+x-type: university
+x-category: Private Research University
 description: >-
-  Washington University in St. Louis (WashU) is a private research university
-  in St. Louis, Missouri, ranked #171 in the QS World University Rankings 2025.
-  Its public developer footprint is modest: WashU operates an enterprise API
-  program ("Data at WashU") delivered through MuleSoft Anypoint Exchange,
-  exposing institutional APIs (Person, Financial, Supplier, Location, Academic,
-  Organization) that are gated and require access requests through ServiceNow
-  for WashU integrators rather than open public consumption. The Becker Medical
-  Library School of Medicine runs a Digital Commons Data (Elsevier/Mendeley
-  Data) research repository that exposes an OAI-PMH endpoint and API docs. Most
-  other surfaces (course catalog, registrar) are web applications rather than
-  documented public APIs.
+  Washington University in St. Louis (WashU) is a private research university in St. Louis,
+  Missouri, now presenting itself on washu.edu with the historic wustl.edu domain redirecting to it.
+  Its programmable footprint is small but, unusually for this cohort, not empty and not entirely
+  someone else's: the McDonnell Genome Institute at WashU School of Medicine builds and operates
+  CIViC, the Clinical Interpretation of Variants in Cancer knowledgebase, whose public GraphQL API
+  at civicdb.org/api/graphql answers anonymous introspection with a 502-type schema, 112 root
+  queries and 47 mutations, documents a bearer-token API key and a 3 request/second rate limit, and
+  is released CC0. WashU also operates its own Shibboleth SAML 2.0 identity provider, published as
+  signed metadata in InCommon with REFEDS Research & Scholarship and SIRTFI assurance — machine
+  readable institutional infrastructure almost no university in this cohort catalogues. Its
+  enterprise integration APIs (Person, Financial, Supplier, Location, Academic, Organization) are
+  real but wholly gated: they live in a MuleSoft Anypoint Exchange tenant and access is granted by
+  internal ServiceNow request, with no public specification, endpoint or sign-up. Everything else is
+  a relationship rather than WashU engineering. The two research repositories that harvest cleanly
+  over OAI-PMH 2.0 — the WashU Scholarly Repository and Digital Commons Data@Becker — both sit on
+  wustl.edu hostnames that CNAME straight to Elsevier infrastructure (bepress and Mendeley Data),
+  so the data and the DOIs are WashU's and the contracts are Elsevier's. WashU is a DataCite direct
+  member with two registered repositories. There is no public open-data portal, no documented course
+  or SIS API, and courses.wustl.edu no longer answers at all.
 type: Index
 deliveryModel:
   model: saas
-  open_source: false
-  commercial: true
-  callable_host: false
+  open_source: true
+  commercial: false
+  callable_host: true
   label: Hosted service · you call their endpoint
-  confidence: medium
+  confidence: high
   source:
-  - pricing
-  generated: '2026-08-28'
-  method: derived
+  - probed
+  - graphql
+  generated: '2026-09-01'
+  method: probed
 accessModel:
   pricing: free
-  onboarding: unknown
+  onboarding: self-service
   trial: false
-  try_now: false
-  public: false
-  label: Free
-  confidence: medium
+  try_now: true
+  public: partial
+  label: Free — CIViC reads anonymously, an optional key is free; everything else is gated
+  confidence: high
   source:
-  - plans
-  generated: '2026-07-22'
-  method: derived
-position: Consumer
-access: 3rd-Party
+  - probed
+  - documentation
+  generated: '2026-09-01'
+  method: probed
+position: Provider
+access: 1st-Party
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/washington-university-in-st-louis.png
 url: https://raw.githubusercontent.com/api-evangelist/washington-university-in-st-louis/refs/heads/main/apis.yml
 tags:
-  - Education
-  - Higher Education
   - University
-  - Research
+  - Higher Education
+  - Education
   - United States
-  - MuleSoft
+  - Missouri
+  - Private Research University
+  - Research Data
+  - Research Repository
+  - Identity Federation
+  - Genomics
+  - Bioinformatics
+  - GraphQL
   - OAI-PMH
+  - Shibboleth
+  - DataCite
+  - MuleSoft
 created: '2026-06-03'
-modified: '2026-06-03'
+modified: '2026-09-01'
 specificationVersion: '0.23'
+
+x-coverage:
+  state: covered
+  reason: covered
+  detail: >-
+    Every class this pipeline hunts was probed on 2026-09-01 and the institution turned out to hold
+    one genuinely public, institution-engineered API — which is more than the June 2026 profile
+    found and more than most of this cohort has. CIViC's GraphQL endpoint answered an
+    unauthenticated introspection query with HTTP 200 and a complete 502-type schema, which is saved
+    here as a probed contract; its own documentation attributes it to "The McDonnell Genome
+    Institute at Washington University School of Medicine", which is what settles the operator,
+    since civicdb.org is an independent project domain no hostname rule can read. WashU's Shibboleth
+    IdP entity resolved in the InCommon MDQ service as signed SAML 2.0 metadata scoped to wustl.edu.
+    Both OAI-PMH endpoints answered Identify, ListMetadataFormats and ListSets, and DNS resolution
+    is what demoted them from institution to tenant: openscholarship.wustl.edu CNAMEs to
+    dcwustlmain.bepress.com with adminEmail dc-support@elsevier.com, and digitalcommonsdata.wustl.edu
+    CNAMEs to www.data.mendeley.com. The June 2026 profile recorded both as institution-owned on the
+    strength of the wustl.edu label alone; that is corrected here. The enterprise MuleSoft program is
+    real and completely closed — the portal pages are public, nothing behind them is. Two research
+    platforms, CNDA (XNAT) and BALSA, are WashU-operated but return a login page to every request,
+    CNDA doing so as a soft 200 at /app/template/Login.vm even for /xapi/swagger.json, so no contract
+    was taken from them. Not found, after looking: any open-data portal, any course or registrar API
+    (courses.wustl.edu now fails to connect entirely, having returned 200 in June), any llms.txt,
+    any /.well-known/security.txt, any status page, and any Crossref or ORCID institutional surface.
+    library.washu.edu and catalog.wustl.edu sit behind a Cloudflare bot challenge — a finding about
+    their edge, not a gap in their publishing, and not an API in any case.
+  evidence:
+    - url: https://civicdb.org/api/graphql
+      status: 200
+      note: POST introspection, 986,452-byte schema response, no credential
+    - url: https://civicdb.org/api/graphiql
+      status: 200
+    - url: https://docs.civicdb.org/en/latest/api.html
+      status: 200
+    - url: https://mdq.incommon.org/entities/https%3A%2F%2Flogin.wustl.edu%2Fidp%2Fshibboleth
+      status: 200
+      note: application/samlmetadata+xml, 9,353 bytes, signed
+    - url: https://openscholarship.wustl.edu/do/oai/?verb=Identify
+      status: 200
+    - url: https://digitalcommonsdata.wustl.edu/oai?verb=Identify
+      status: 200
+    - url: https://api.datacite.org/providers/wustl
+      status: 200
+      note: memberType direct_member
+    - url: https://commons.datacite.org/providers/wustl
+      status: 429
+      note: DataCite's human-facing commons UI rate-limits us; the API record is cited instead
+    - url: https://data.wustl.edu/api-portal/api-portal-anypoint-access/
+      status: 200
+      note: ServiceNow access request, no public sign-up
+    - url: https://data.wustl.edu/wp-json/
+      status: 200
+      note: WordPress REST API, 467 routes, name "Data at WashU"
+    - url: https://cnda.wustl.edu/xapi/swagger.json
+      status: 200
+      note: soft-200 — serves the 23,725-byte XNAT login page, not the OpenAPI
+    - url: https://balsa.wustl.edu/api
+      status: 302
+      note: redirects to /login/auth
+    - url: https://library.washu.edu/
+      status: 403
+      note: Cloudflare bot challenge ("Just a moment...") — live, not dead
+    - url: https://courses.wustl.edu/
+      status: 000
+      note: connection failure; returned 200 in the June 2026 pass
+    - url: https://washu.edu/llms.txt
+      status: 404
+    - url: https://washu.edu/.well-known/security.txt
+      status: 404
+    - url: https://docs.ris.wustl.edu/
+      status: 200
+      note: >-
+        meta-refresh shell to washu.atlassian.net/wiki/spaces/RUD/overview — the Research
+        Infrastructure Services user documentation. Deliberately NOT emitted as a common
+        Documentation pointer: institution_domains() in the audit reads that type and would then
+        record atlassian.net as a domain Washington University owns, which it does not.
+
 apis:
+  - aid: washington-university-in-st-louis:civic
+    name: CIViC — Clinical Interpretation of Variants in Cancer
+    x-operator: institution
+    description: >-
+      A free, open, community-curated knowledgebase of the clinical significance of variants in
+      cancer, built and operated by The McDonnell Genome Institute at Washington University School
+      of Medicine and released under CC0 1.0. The public GraphQL API is the live contract: 502 named
+      types, 112 root query fields covering molecular profiles, variants, features, evidence items,
+      assertions, diseases, therapies, phenotypes, clinical trials, ACMG and ClinGen code
+      vocabularies and data releases, and 47 mutations that expose the whole expert curation
+      workflow — submit evidence, suggest and moderate revisions, approve assertions, and mint or
+      revoke the caller's own API keys. Reads are anonymous; writes and higher rate ceilings take a
+      free bearer-token key. The operator documents 3 requests/second over a five-minute window for
+      anonymous callers and directs bulk consumers to CIViCpy. The former V1 REST API is documented
+      as deprecated and no longer available. Operator is institution, not vendor: civicdb.org is an
+      independent project domain, so the attribution rests on what the contract's own documentation
+      says about itself, exactly as the ownership check requires.
+    humanURL: https://civicdb.org/
+    baseURL: https://civicdb.org/api/graphql
+    tags: [ Genomics, Bioinformatics, Cancer, Knowledgebase, GraphQL, Research, Open Data, CC0 ]
+    properties:
+      - type: GraphQL
+        url: graphql/washington-university-in-st-louis-civic-schema.graphql
+      - type: Documentation
+        url: graphql/washington-university-in-st-louis-civic.md
+      - type: APIReference
+        url: https://docs.civicdb.org/en/latest/api.html
+      - type: Console
+        url: https://civicdb.org/api/graphiql
+      - type: Authentication
+        url: authentication/washington-university-in-st-louis-authentication.yml
+      - type: RateLimits
+        url: rate-limits/washington-university-in-st-louis-rate-limits.yml
+      - type: SourceCode
+        url: https://github.com/griffithlab/civic-v2
+
   - aid: washington-university-in-st-louis:enterprise-apis
     name: WashU Enterprise Integration APIs (MuleSoft Anypoint)
+    x-operator: institution
     description: >-
-      Institutional integration APIs published via MuleSoft Anypoint Exchange
-      ("WashU API Portal"), covering Person, Financial, Supplier, Location,
-      Academic, and Organization data domains. Access is gated: integrators
-      must request access through ServiceNow and are drawn from the WashU
-      community rather than the open public. Endpoints and specifications are
-      documented in Anypoint Exchange and worked with via Postman.
+      Institutional integration APIs published in a MuleSoft Anypoint Exchange tenant and described
+      publicly as "Data at WashU", covering the Person, Financial, Supplier, Location, Academic and
+      Organization data domains. WashU engineers these APIs over its own systems, which is why the
+      operator is institution and not tenant even though the delivery platform is MuleSoft's. They
+      are nonetheless entirely closed to the public: integrators request Anypoint Exchange access
+      through ServiceNow and are drawn from the WashU community, no specification or endpoint is
+      published, and there is no self-service sign-up. Nothing has been saved as a contract here
+      because nothing is publicly readable. A resolving host audit reads data.wustl.edu as a
+      CampusPress tenant, and it is right about that host — data.wustl.edu is only where the program
+      is DOCUMENTED, a WordPress site. The APIs themselves are WashU-built services over WashU
+      systems, fronted by a MuleSoft Anypoint tenant, which is why the operator here is institution.
+      The distinction is recorded rather than left for a future reader to re-litigate.
     humanURL: https://data.wustl.edu/api-portal/
-    tags: [ Integration, Enterprise, MuleSoft, Identity, Finance, Gated ]
+    tags: [ Integration, Enterprise, MuleSoft, Identity, Finance, Gated, Registrar ]
     properties:
       - type: Documentation
         url: https://data.wustl.edu/api-portal/
@@ -73,38 +214,238 @@ apis:
         url: https://data.wustl.edu/api-portal/api-portal-anypoint-access/
       - type: DeveloperPortal
         url: https://anypoint.mulesoft.com/exchange/portals/wustl/
-  - aid: washington-university-in-st-louis:digital-commons-data
-    name: Digital Commons Data@Becker (Research Repository)
+
+  - aid: washington-university-in-st-louis:incommon-idp
+    name: WashU Shibboleth Identity Provider (InCommon)
+    x-operator: federation
     description: >-
-      The Becker Medical Library / School of Medicine research data repository
-      runs on the Elsevier Digital Commons Data (Mendeley Data) platform. It
-      publishes an API docs page and a working OAI-PMH metadata harvesting
-      endpoint for the institutional research dataset collection.
-    humanURL: https://digitalcommonsdata.wustl.edu/api/docs/
-    baseURL: https://digitalcommonsdata.wustl.edu/oai
-    tags: [ Research Data, Repository, OAI-PMH, Library, School of Medicine ]
+      Washington University's own SAML 2.0 identity provider, entityID
+      https://login.wustl.edu/idp/shibboleth, published as signed metadata through the InCommon
+      per-entity metadata query service. The document carries an IDPSSODescriptor and an
+      AttributeAuthorityDescriptor, HTTP-POST and HTTP-Redirect SingleSignOnService endpoints under
+      login.wustl.edu, a shibmd:Scope of wustl.edu, and two opt-in assurance commitments the
+      institution chose to make — the REFEDS Research & Scholarship entity category and SIRTFI
+      incident-response certification. login.wustl.edu resolves to idm3-loginprod.g.wustl.edu,
+      inside WashU's own network. A federation is shared by definition; the IdP behind this entry
+      is not, and it is the strongest institution-operated machine-readable surface WashU has.
+    humanURL: https://it.washu.edu/
+    baseURL: https://mdq.incommon.org/entities/
+    tags: [ Identity Federation, Shibboleth, SAML, InCommon, Single Sign-On, REFEDS ]
     properties:
+      - type: IdentityFederation
+        url: https://mdq.incommon.org/entities/https%3A%2F%2Flogin.wustl.edu%2Fidp%2Fshibboleth
+      - type: Conformance
+        url: conformance/washington-university-in-st-louis-conformance.yml
+      - type: Authentication
+        url: authentication/washington-university-in-st-louis-authentication.yml
+
+  - aid: washington-university-in-st-louis:open-scholarship
+    name: WashU Scholarly Repository (OAI-PMH)
+    x-operator: tenant
+    description: >-
+      The university's institutional repository, "WashU Scholarly Repository", serving a live
+      OAI-PMH 2.0 interface with nine metadata formats including oai_etdms for theses and
+      oai_openaire for OpenAIRE harvesting, an earliest datestamp of 2000-01-19, and a fully
+      populated set list. Recorded as tenant rather than institution: openscholarship.wustl.edu is a
+      vanity CNAME to dcwustlmain.bepress.com and the Identify response gives adminEmail
+      dc-support@elsevier.com, so the platform is bepress Digital Commons (Elsevier). The
+      collection, the policy and the scholarship are WashU's; the OAI-PMH implementation is not, and
+      no vendor contract is saved under this profile.
+    humanURL: https://openscholarship.wustl.edu/
+    baseURL: https://openscholarship.wustl.edu/do/oai/
+    tags: [ Research Repository, Institutional Repository, OAI-PMH, bepress, Elsevier, Open Access ]
+    properties:
+      - type: ResearchRepository
+        url: https://openscholarship.wustl.edu/
+      - type: Documentation
+        url: https://openscholarship.wustl.edu/do/oai/?verb=Identify
+      - type: Conformance
+        url: conformance/washington-university-in-st-louis-conformance.yml
+
+  - aid: washington-university-in-st-louis:digital-commons-data
+    name: Digital Commons Data@Becker (Research Data Repository)
+    x-operator: tenant
+    description: >-
+      The Becker Medical Library and School of Medicine research data repository, publishing an API
+      documentation page and a live OAI-PMH 2.0 endpoint that serves the datacite, oai_datacite and
+      oai_dc metadata prefixes with an earliest datestamp of 1971. Recorded as tenant, corrected
+      from the June 2026 profile's institution verdict: digitalcommonsdata.wustl.edu is a CNAME to
+      www.data.mendeley.com, so the repository runs on Elsevier Digital Commons Data (Mendeley
+      Data). The hostname is under wustl.edu and the DNS is what settles it. The datasets and the
+      DOIs, registered under the DataCite repository wustl.becker-ir, are Washington University's.
+    humanURL: https://digitalcommonsdata.wustl.edu/
+    baseURL: https://digitalcommonsdata.wustl.edu/oai
+    tags: [ Research Data, Repository, OAI-PMH, Mendeley Data, Elsevier, School of Medicine, DataCite ]
+    properties:
+      - type: ResearchRepository
+        url: https://digitalcommonsdata.wustl.edu/
       - type: Documentation
         url: https://digitalcommonsdata.wustl.edu/api/docs/
       - type: Documentation
         url: https://digitalcommonsdata.wustl.edu/oai?verb=Identify
+      - type: Conformance
+        url: conformance/washington-university-in-st-louis-conformance.yml
+
+  - aid: washington-university-in-st-louis:datacite
+    name: DataCite Membership — Washington University in St. Louis Libraries
+    x-operator: registry
+    description: >-
+      Washington University in St. Louis Libraries is a DataCite direct member, symbol WUSTL,
+      registered 2018-08-30, region AMER, and linked from DataCite's own record to
+      https://ror.org/01yc7t268 — the same ROR identifier this profile claims. Two DOI repositories
+      are registered under the membership: wustl.lib (Washington University in St. Louis Libraries)
+      and wustl.becker-ir (Digital Commons@Becker). This entry records a membership, which is a fact
+      about the institution; DataCite's own API is never saved as WashU's contract, and the entry is
+      never deleted for being shared with other institutions that also register DOIs. The
+      human-facing record at commons.datacite.org/providers/wustl returned 429 on every attempt on
+      2026-09-01, so the API record is cited here instead.
+    humanURL: https://api.datacite.org/providers/wustl
+    baseURL: https://api.datacite.org
+    tags: [ DataCite, DOI, Persistent Identifiers, Registry, Membership, Library ]
+    properties:
+      - type: Registry
+        url: https://api.datacite.org/providers/wustl
+      - type: Conformance
+        url: conformance/washington-university-in-st-louis-conformance.yml
+
+  - aid: washington-university-in-st-louis:ror
+    name: ROR Registration — Washington University in St. Louis
+    x-operator: registry
+    description: >-
+      The institution's Research Organization Registry record, https://ror.org/01yc7t268, carrying
+      its display name, multilingual name variants, the WUSTL acronym, a St. Louis location, and
+      cross-references to Crossref Funder Registry ID 100007268, GRID grid.4367.6 and ISNI
+      0000 0004 1936 9350. The ROR record links out to wustl.edu. A registration, recorded as a fact
+      about the institution; the registry's contract belongs to ROR.
+    humanURL: https://ror.org/01yc7t268
+    baseURL: https://api.ror.org/v2/organizations
+    tags: [ ROR, Persistent Identifiers, Registry, Organization Identifier, GRID, ISNI ]
+    properties:
+      - type: Registry
+        url: https://api.ror.org/v2/organizations/01yc7t268
+
+  - aid: washington-university-in-st-louis:wordpress-rest
+    name: WashU WordPress REST APIs (CampusPress)
+    x-operator: tenant
+    description: >-
+      Every WashU departmental site probed exposes a live, unauthenticated WordPress REST API with a
+      complete route discovery document — data.wustl.edu ("Data at WashU", 467 routes),
+      source.washu.edu ("The Source", 429 routes), ris.wustl.edu ("Research Infrastructure
+      Services", 327 routes), registrar.washu.edu (310), ai.washu.edu ("Artificial Intelligence",
+      318), it.washu.edu (257) and washu.edu itself (337). These are content APIs the CMS ships
+      rather than APIs WashU designed, which is worth saying plainly, but they are unauthenticated,
+      machine-readable, self-describing and served from hosts the institution controls, and they are
+      in practice the only way to read WashU's public content programmatically. Operator is tenant,
+      not institution: data.wustl.edu CNAMEs to data.wustl.edu.c13858.campuspress.com, so the estate
+      runs on CampusPress managed hosting, and the REST contract itself is WordPress core's. The
+      sites, the content and the editorial are Washington University's; the engineering behind the
+      interface is not, and crediting the institution for it would be the same error this pipeline
+      exists to prevent. The relationship is recorded rather than dropped, because it is real and
+      it is the institution's most readable public surface.
+    humanURL: https://washu.edu/
+    baseURL: https://washu.edu/wp-json/
+    tags: [ Content, WordPress, REST, CMS, News, Discovery ]
+    properties:
+      - type: APIReference
+        url: https://washu.edu/wp-json/
+      - type: Documentation
+        url: https://data.wustl.edu/wp-json/
+      - type: Documentation
+        url: https://source.washu.edu/wp-json/
+
+  - aid: washington-university-in-st-louis:cnda
+    name: CNDA — Central Neuroimaging Data Archive (XNAT)
+    x-operator: institution
+    description: >-
+      WashU's neuroimaging data archive, running XNAT — imaging informatics software that originated
+      at the university's own Neuroinformatics Research Group. cnda.wustl.edu resolves inside WashU's
+      network and the platform genuinely is the institution's. It is recorded without a contract
+      because none is publicly readable: every path probed, including the XNAT REST root /data/version
+      and the OpenAPI document at /xapi/swagger.json, returns the same 23,725-byte login page at
+      /app/template/Login.vm with HTTP 200. That is a soft-200 gate — a success code wrapping a
+      sign-in form — and it is recorded as such rather than counted as an available API.
+    humanURL: https://cnda.wustl.edu/
+    tags: [ Neuroimaging, Research Computing, XNAT, Research Data, Gated, School of Medicine ]
+    properties:
+      - type: Website
+        url: https://cnda.wustl.edu/
+      - type: Authentication
+        url: authentication/washington-university-in-st-louis-authentication.yml
+
+  - aid: washington-university-in-st-louis:balsa
+    name: BALSA Neuroimaging Database
+    x-operator: institution
+    description: >-
+      A WashU-operated database of neuroimaging scenes and datasets at balsa.wustl.edu, and now the
+      destination of db.humanconnectome.org, which CNAMEs to proxy.nrg.wustl.edu and redirects here —
+      the Human Connectome Project's ConnectomeDB front door resolving into WashU's own
+      Neuroinformatics Research Group infrastructure. /api and /study both return 302 to
+      /login/auth, so the surface is authenticated and no contract is saved. Recorded because the
+      operator is unambiguously the institution and the redirect is itself a useful fact about where
+      HCP data access now lands.
+    humanURL: https://balsa.wustl.edu/
+    tags: [ Neuroimaging, Research Data, Human Connectome Project, Gated, Research Computing ]
+    properties:
+      - type: Website
+        url: https://balsa.wustl.edu/
+      - type: Authentication
+        url: authentication/washington-university-in-st-louis-authentication.yml
+
 common:
-  - type: DomainSecurity
-    url: security/washington-university-in-st-louis-domain-security.yml
+  - type: Website
+    url: https://washu.edu
   - type: Website
     url: https://wustl.edu
+  - type: Documentation
+    url: https://data.wustl.edu/api-portal/
+  - type: APIReference
+    url: https://docs.civicdb.org/en/latest/api.html
+  - type: DeveloperPortal
+    url: https://data.wustl.edu/api-portal/
+  - type: GitHubOrganization
+    url: https://github.com/WashU-IT-RIS
   - type: GitHub
     url: https://github.com/wustl
   - type: LinkedIn
     url: https://www.linkedin.com/school/washington-university-in-st-louis/
-  - type: DeveloperPortal
-    url: https://data.wustl.edu/api-portal/
+  - type: ResearchRepository
+    url: https://openscholarship.wustl.edu/
+  - type: ResearchRepository
+    url: https://digitalcommonsdata.wustl.edu/
+  - type: IdentityFederation
+    url: https://mdq.incommon.org/entities/https%3A%2F%2Flogin.wustl.edu%2Fidp%2Fshibboleth
+  - type: ResearchComputing
+    url: https://ris.wustl.edu/
+  - type: CourseCatalog
+    url: https://registrar.washu.edu/
+  - type: AIPolicy
+    url: https://ai.washu.edu/
+  - type: AITooling
+    url: https://ai.washu.edu/tools/
+  - type: PrivacyPolicy
+    url: https://registrar.washu.edu/student-records-resources/ferpa-overview/
+  - type: Support
+    url: https://it.washu.edu/
+  - type: Blog
+    url: https://source.washu.edu/
+  - type: BlogRSS
+    url: https://source.washu.edu/feed/
+  - type: GraphQL
+    url: graphql/washington-university-in-st-louis-civic-schema.graphql
+  - type: Authentication
+    url: authentication/washington-university-in-st-louis-authentication.yml
+  - type: Conformance
+    url: conformance/washington-university-in-st-louis-conformance.yml
+  - type: DomainSecurity
+    url: security/washington-university-in-st-louis-domain-security.yml
   - type: Plans
     url: plans/washington-university-in-st-louis-plans-pricing.yml
   - type: RateLimits
     url: rate-limits/washington-university-in-st-louis-rate-limits.yml
   - type: FinOps
     url: finops/washington-university-in-st-louis-finops.yml
+  - type: JSONLD
+    url: json-ld/washington-university-in-st-louis-context.jsonld
   - type: Review
     url: review.yml
 maintainers:
