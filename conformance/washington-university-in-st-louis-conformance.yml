@@ -1,0 +1,187 @@
+---
+name: Washington University in St. Louis — Domain Standard Conformance
+description: >-
+  Education-regime standard conformance for Washington University in St. Louis, established by live
+  probe of institution-operated and institution-hosted surfaces on 2026-09-01. Reward-only: a
+  standard appears as conformant only where a credential-free request returned a response that
+  proves the deployment. Standards in the education regime for which no evidence was found are
+  listed under not_found rather than left implicit. Each entry carries the operator of the thing
+  that answered, because for a university the host and the engineer are usually not the same party.
+generated: '2026-09-01'
+x-method: derived
+x-authorship: This file is our writing; every value in it is quoted from a live response.
+method: probed
+source: >-
+  live probes of mdq.incommon.org (WashU Shibboleth IdP entity), openscholarship.wustl.edu,
+  digitalcommonsdata.wustl.edu, api.datacite.org and api.crossref.org, 2026-09-01
+x-operator: institution
+url: https://raw.githubusercontent.com/api-evangelist/washington-university-in-st-louis/main/conformance/washington-university-in-st-louis-conformance.yml
+regime: education
+
+conformance:
+  - standard: saml
+    status: conformant
+    version: '2.0'
+    operator: institution
+    evidence:
+      url: https://mdq.incommon.org/entities/https%3A%2F%2Flogin.wustl.edu%2Fidp%2Fshibboleth
+      status: 200
+      content_type: application/samlmetadata+xml
+      location: EntityDescriptor/IDPSSODescriptor/@protocolSupportEnumeration
+      value: urn:oasis:names:tc:SAML:2.0:protocol
+      detail: >-
+        Signed SAML 2.0 metadata for entityID https://login.wustl.edu/idp/shibboleth, 9,353 bytes,
+        registrationAuthority https://incommon.org, validUntil 2026-09-15T16:37:08Z. The document
+        carries both an IDPSSODescriptor and an AttributeAuthorityDescriptor, and advertises
+        SingleSignOnService at https://login.wustl.edu/idp/profile/SAML2/POST/SSO (HTTP-POST) and
+        https://login.wustl.edu/idp/profile/SAML2/Redirect/SSO (HTTP-Redirect).
+        OrganizationName and OrganizationDisplayName are both "Washington University in St. Louis".
+    supporting:
+      - url: https://mdq.incommon.org/entities/https%3A%2F%2Flogin.wustl.edu%2Fidp%2Fshibboleth
+        status: 200
+        location: EntityDescriptor/Extensions/mdattr:EntityAttributes
+        value: >-
+          http://refeds.org/category/research-and-scholarship;
+          https://refeds.org/sirtfi;
+          http://id.incommon.org/category/registered-by-incommon
+        detail: >-
+          The IdP asserts the REFEDS Research & Scholarship entity category and SIRTFI incident
+          response assurance — both are opt-in commitments the institution makes, not defaults.
+    note: >-
+      This is the strongest institution-operated machine-readable surface Washington University has
+      and it is the one class the June 2026 cohort pass missed entirely. login.wustl.edu resolves to
+      idm3-loginprod.g.wustl.edu, inside the institution's own network.
+
+  - standard: shibboleth
+    status: conformant
+    version: '1.0 profile alongside SAML 2.0'
+    operator: institution
+    evidence:
+      url: https://mdq.incommon.org/entities/https%3A%2F%2Flogin.wustl.edu%2Fidp%2Fshibboleth
+      status: 200
+      location: EntityDescriptor/IDPSSODescriptor/Extensions/shibmd:Scope
+      value: wustl.edu
+      detail: >-
+        The entity is a Shibboleth Identity Provider: it declares shibmd:Scope wustl.edu (twice, on
+        the IDPSSODescriptor and the AttributeAuthorityDescriptor), supports
+        urn:mace:shibboleth:1.0 in its protocolSupportEnumeration, and serves a
+        SingleSignOnService bound to urn:mace:shibboleth:1.0:profiles:AuthnRequest at
+        https://login.wustl.edu/idp/profile/Shibboleth/SSO.
+
+  - standard: oai-pmh
+    status: conformant
+    version: '2.0'
+    operator: tenant
+    evidence:
+      url: https://openscholarship.wustl.edu/do/oai/?verb=Identify
+      status: 200
+      content_type: text/xml
+      location: OAI-PMH/Identify/protocolVersion
+      value: '2.0'
+      detail: >-
+        repositoryName "WashU Scholarly Repository", baseURL
+        http://openscholarship.wustl.edu/do/oai/, repositoryIdentifier openscholarship.wustl.edu,
+        earliestDatestamp 2000-01-19T00:00:00Z, granularity YYYY-MM-DDThh:mm:ssZ. The eprints
+        description block states the metadata policy ("Metadata can be used by commercial and
+        non-commercial service providers") and a data policy restricting robot harvesting of full
+        content without written approval.
+    supporting:
+      - url: https://openscholarship.wustl.edu/do/oai/?verb=ListMetadataFormats
+        status: 200
+        location: OAI-PMH/ListMetadataFormats/metadataFormat/metadataPrefix
+        value: >-
+          simple-dublin-core, oai_dc, oai-dc, dcs, qualified-dublin-core, qdc, dcq, oai_etdms,
+          oai_openaire
+        detail: >-
+          Nine metadata formats, including oai_etdms for theses and dissertations and oai_openaire
+          for OpenAIRE harvesting.
+      - url: https://openscholarship.wustl.edu/do/oai/?verb=ListSets
+        status: 200
+        location: OAI-PMH/ListSets
+        detail: 37,946-byte set list — a fully populated, not a default, configuration.
+    note: >-
+      Recorded as tenant, not institution. openscholarship.wustl.edu is a vanity CNAME to
+      dcwustlmain.bepress.com and the Identify response gives adminEmail dc-support@elsevier.com:
+      the repository is bepress Digital Commons (Elsevier). The content, the collection policy and
+      the DOIs are Washington University's; the OAI-PMH implementation is Elsevier's.
+
+  - standard: oai-pmh
+    status: conformant
+    version: '2.0'
+    operator: tenant
+    evidence:
+      url: https://digitalcommonsdata.wustl.edu/oai?verb=Identify
+      status: 200
+      location: OAI-PMH/Identify/repositoryName
+      value: Digital Commons Data@Becker
+      detail: >-
+        protocolVersion 2.0, baseURL https://digitalcommonsdata.wustl.edu/oai, earliestDatestamp
+        1971-01-01T11:00:00Z, granularity YYYY-MM-DDThh:mm:ssZ.
+    supporting:
+      - url: https://digitalcommonsdata.wustl.edu/oai?verb=ListMetadataFormats
+        status: 200
+        location: OAI-PMH/ListMetadataFormats/metadataFormat/metadataPrefix
+        value: datacite, oai_dc, oai_datacite
+        detail: >-
+          Serves the DataCite metadata schema alongside Dublin Core, which is what makes the DOI
+          registration in the datacite entry below independently checkable from the repository side.
+    note: >-
+      Recorded as tenant. digitalcommonsdata.wustl.edu is a CNAME to www.data.mendeley.com — the
+      Becker Medical Library research data repository runs on Elsevier Digital Commons Data
+      (Mendeley Data). A hostname-only verdict reads this as institution-owned because the label is
+      under wustl.edu; DNS resolution is what settles it.
+
+  - standard: datacite
+    status: conformant
+    operator: registry
+    evidence:
+      url: https://api.datacite.org/providers/wustl
+      status: 200
+      location: data/attributes/memberType
+      value: direct_member
+      detail: >-
+        DataCite provider symbol WUSTL, name "Washington University in St. Louis Libraries",
+        memberType direct_member, region AMER, country US, created 2018-08-30, and
+        rorId https://ror.org/01yc7t268 — the same ROR record this profile claims.
+    supporting:
+      - url: https://api.datacite.org/repositories?provider-id=wustl
+        status: 200
+        location: data[]/id
+        value: wustl.lib, wustl.becker-ir
+        detail: >-
+          Two registered DOI repositories under the WUSTL membership — "Washington University in
+          St. Louis Libraries" and "Digital Commons@Becker".
+    note: >-
+      This is a membership fact about the institution, not a contract of theirs. DataCite's own API
+      is never saved under this slug; the entry records that Washington University registers DOIs
+      as a direct member, which nine other institutions in this cohort also do, correctly.
+
+not_found:
+  - standard: crossref
+    detail: >-
+      https://api.crossref.org/members?query=Washington+University+in+St.+Louis returned no member
+      matching this institution on 2026-09-01. Other Washington-named institutions match; none is
+      WashU. No Crossref membership claimed.
+  - standard: orcid
+    detail: >-
+      No credential-free evidence of an ORCID member or institutional-integration surface on any
+      washu.edu or wustl.edu host. Individual WashU researchers hold ORCID iDs, but that is a fact
+      about them, not a deployment by the institution.
+  - standard: scim
+    detail: >-
+      No SCIM service-provider-config endpoint reachable without credentials. WashU's identity
+      provisioning sits behind login.wustl.edu and is not publicly described.
+  - standard: lti
+    detail: >-
+      No LTI tool or platform registration surface published. WashU's LMS (Canvas) is a vendor
+      tenancy; its LTI conformance is Instructure's, not the institution's.
+  - standard: oneroster
+    detail: No OneRoster endpoint found on any institution host.
+  - standard: ed-fi
+    detail: >-
+      Ed-Fi is a K-12 data standard; no deployment found and none expected at a research
+      university.
+  - standard: caliper
+    detail: No Caliper Analytics event store or sensor endpoint published publicly.
+  - standard: qti
+    detail: No QTI assessment item bank or delivery endpoint published publicly.

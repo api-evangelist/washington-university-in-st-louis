@@ -4,8 +4,11 @@ schema: https://www.finops.org/framework/
 provider: Washington University in St. Louis
 providerId: washington-university-in-st-louis
 created: '2026-06-03'
-modified: '2026-06-03'
-reconciled: false
+modified: '2026-09-01'
+generated: '2026-09-01'
+method: derived
+source: https://raw.githubusercontent.com/api-evangelist/washington-university-in-st-louis/refs/heads/main/apis.yml
+reconciled: true
 tags:
 - Education
 - Higher Education
@@ -17,7 +20,9 @@ description: >-
   APIs carry no usage-based billing; there is no invoiced cost to allocate or optimize.
   FinOps relevance is limited to the institution's own internal cloud/infrastructure
   cost management, which is not publicly disclosed.
-notes: No public usage-based API billing; Washington University in St. Louis's APIs are free/open or affiliation-gated.
+notes: >-
+  No public usage-based API billing. WashU's one open API (CIViC) is free and CC0; the rest of the
+  estate is affiliation-gated rather than priced. Re-confirmed 2026-09-01.
 sources:
 - https://raw.githubusercontent.com/api-evangelist/washington-university-in-st-louis/refs/heads/main/apis.yml
 - https://www.finops.org/framework/

@@ -1,11 +1,12 @@
 {
   "@context": {
     "@vocab": "https://schema.org/",
-    "washu": "https://data.wustl.edu/api-portal/#",
+    "washu": "https://washu.edu/#",
     "schema": "https://schema.org/",
     "dcterms": "http://purl.org/dc/terms/",
     "datacite": "http://datacite.org/schema/kernel-4/",
     "oai": "http://www.openarchives.org/OAI/2.0/",
+    "md": "urn:oasis:names:tc:SAML:2.0:metadata#",
     "name": "schema:name",
     "url": "schema:url",
     "description": "schema:description",
@@ -13,57 +14,111 @@
     "sameAs": "schema:sameAs",
     "department": "schema:department",
     "parentOrganization": "schema:parentOrganization",
+    "subOrganization": "schema:subOrganization",
     "CollegeOrUniversity": "schema:CollegeOrUniversity",
     "EducationalOrganization": "schema:EducationalOrganization",
+    "ResearchOrganization": "schema:ResearchOrganization",
     "Library": "schema:Library",
     "Dataset": "schema:Dataset",
+    "DataCatalog": "schema:DataCatalog",
+    "WebAPI": "schema:WebAPI",
     "identifier": "schema:identifier",
+    "PropertyValue": "schema:PropertyValue",
+    "propertyID": "schema:propertyID",
+    "value": "schema:value",
     "datePublished": "schema:datePublished",
     "creator": "schema:creator",
+    "provider": "schema:provider",
     "license": "schema:license",
+    "documentation": "schema:documentation",
+    "endpointURL": "schema:endpointURL",
     "distribution": "schema:distribution",
-    "api": {
-      "@id": "washu:api",
-      "@type": "@id"
-    },
-    "developerPortal": {
-      "@id": "washu:developerPortal",
-      "@type": "@id"
-    },
+    "generated": "dcterms:created",
+    "method": "dcterms:provenance",
+    "source": "dcterms:source",
+    "operator": "washu:operator",
+    "api": { "@id": "washu:api", "@type": "@id" },
+    "developerPortal": { "@id": "washu:developerPortal", "@type": "@id" },
     "metadataFormat": "washu:metadataFormat",
-    "oaiBaseURL": {
-      "@id": "oai:baseURL",
-      "@type": "@id"
-    }
+    "oaiBaseURL": { "@id": "oai:baseURL", "@type": "@id" },
+    "samlEntityID": { "@id": "md:entityID", "@type": "@id" },
+    "samlMetadata": { "@id": "washu:samlMetadata", "@type": "@id" }
   },
   "@type": "CollegeOrUniversity",
-  "@id": "https://wustl.edu",
+  "@id": "https://ror.org/01yc7t268",
   "name": "Washington University in St. Louis",
-  "url": "https://wustl.edu",
-  "description": "Private research university in St. Louis, Missouri, operating an enterprise API program (Data at WashU) via MuleSoft Anypoint Exchange and a Digital Commons Data research repository with an OAI-PMH endpoint.",
+  "url": "https://washu.edu",
+  "generated": "2026-09-01",
+  "method": "derived",
+  "source": "https://raw.githubusercontent.com/api-evangelist/washington-university-in-st-louis/refs/heads/main/apis.yml",
+  "description": "Private research university in St. Louis, Missouri. Its one genuinely public, institution-engineered API is CIViC, a cancer variant interpretation knowledgebase built by the McDonnell Genome Institute at the School of Medicine and served over GraphQL under CC0. WashU also operates its own Shibboleth SAML 2.0 identity provider published in InCommon, and runs a gated MuleSoft Anypoint enterprise API program. Its two OAI-PMH research repositories are Elsevier tenancies on wustl.edu hostnames, not WashU engineering.",
   "sameAs": [
+    "https://wustl.edu",
+    "https://ror.org/01yc7t268",
+    "https://github.com/WashU-IT-RIS",
     "https://github.com/wustl",
     "https://www.linkedin.com/school/washington-university-in-st-louis/"
   ],
+  "identifier": [
+    { "@type": "PropertyValue", "propertyID": "ROR", "value": "https://ror.org/01yc7t268" },
+    { "@type": "PropertyValue", "propertyID": "GRID", "value": "grid.4367.6" },
+    { "@type": "PropertyValue", "propertyID": "ISNI", "value": "0000 0004 1936 9350" },
+    { "@type": "PropertyValue", "propertyID": "Crossref Funder ID", "value": "100007268" },
+    { "@type": "PropertyValue", "propertyID": "DataCite Provider", "value": "WUSTL" }
+  ],
   "developerPortal": "https://data.wustl.edu/api-portal/",
-  "department": {
-    "@type": "Library",
-    "name": "Bernard Becker Medical Library",
-    "url": "https://becker.wustl.edu/",
-    "parentOrganization": {
-      "@type": "EducationalOrganization",
-      "name": "Washington University School of Medicine in St. Louis"
+  "samlEntityID": "https://login.wustl.edu/idp/shibboleth",
+  "samlMetadata": "https://mdq.incommon.org/entities/https%3A%2F%2Flogin.wustl.edu%2Fidp%2Fshibboleth",
+  "subOrganization": [
+    {
+      "@type": "ResearchOrganization",
+      "name": "The McDonnell Genome Institute at Washington University School of Medicine",
+      "operator": "institution",
+      "api": {
+        "@type": "WebAPI",
+        "name": "CIViC — Clinical Interpretation of Variants in Cancer",
+        "url": "https://civicdb.org/",
+        "endpointURL": "https://civicdb.org/api/graphql",
+        "documentation": "https://docs.civicdb.org/en/latest/api.html",
+        "license": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "description": "Public GraphQL API over a community-curated knowledgebase of the clinical significance of cancer variants. 502 named types, 112 root queries, 47 mutations. Anonymous reads; optional free bearer-token API key for writes and a higher rate ceiling."
+      }
     },
-    "api": {
-      "@type": "Dataset",
-      "name": "Digital Commons Data@Becker",
-      "url": "https://digitalcommonsdata.wustl.edu/",
-      "description": "Institutional research data repository on the Elsevier Digital Commons Data (Mendeley Data) platform, exposing an OAI-PMH 2.0 metadata harvesting endpoint.",
-      "oaiBaseURL": "https://digitalcommonsdata.wustl.edu/oai",
-      "metadataFormat": [
-        "oai_dc",
-        "datacite"
-      ]
+    {
+      "@type": "Library",
+      "name": "Bernard Becker Medical Library",
+      "url": "https://becker.wustl.edu/",
+      "operator": "institution",
+      "parentOrganization": {
+        "@type": "EducationalOrganization",
+        "name": "Washington University School of Medicine in St. Louis"
+      },
+      "api": {
+        "@type": "DataCatalog",
+        "name": "Digital Commons Data@Becker",
+        "url": "https://digitalcommonsdata.wustl.edu/",
+        "operator": "tenant",
+        "provider": { "@type": "Organization", "name": "Elsevier — Digital Commons Data (Mendeley Data)" },
+        "description": "Institutional research data repository. The hostname is under wustl.edu but CNAMEs to www.data.mendeley.com; the datasets and DOIs are WashU's, the platform and contract are Elsevier's.",
+        "oaiBaseURL": "https://digitalcommonsdata.wustl.edu/oai",
+        "metadataFormat": ["oai_dc", "datacite", "oai_datacite"]
+      }
+    },
+    {
+      "@type": "Library",
+      "name": "Washington University in St. Louis Libraries",
+      "operator": "institution",
+      "identifier": { "@type": "PropertyValue", "propertyID": "DataCite Repository", "value": "wustl.lib" },
+      "api": {
+        "@type": "DataCatalog",
+        "name": "WashU Scholarly Repository",
+        "url": "https://openscholarship.wustl.edu/",
+        "operator": "tenant",
+        "provider": { "@type": "Organization", "name": "Elsevier — bepress Digital Commons" },
+        "description": "Institutional repository serving OAI-PMH 2.0. openscholarship.wustl.edu CNAMEs to dcwustlmain.bepress.com and its Identify response gives adminEmail dc-support@elsevier.com.",
+        "oaiBaseURL": "https://openscholarship.wustl.edu/do/oai/",
+        "metadataFormat": ["oai_dc", "qdc", "oai_etdms", "oai_openaire"]
+      }
     }
-  }
+  ]
 }

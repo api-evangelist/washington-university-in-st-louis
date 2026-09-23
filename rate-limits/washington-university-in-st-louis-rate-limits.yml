@@ -4,32 +4,84 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Washington University in St. Louis
 providerId: washington-university-in-st-louis
 created: '2026-06-03'
-modified: '2026-06-03'
-reconciled: false
+modified: '2026-09-01'
+generated: '2026-09-01'
+method: searched
+source: https://docs.civicdb.org/en/latest/api.html
+reconciled: true
 tags:
 - Education
 - Higher Education
 - University
 - Rate Limiting
 description: >-
-  Washington University in St. Louis does not publish a unified public rate-limit table across its APIs. Open
-  metadata and harvesting endpoints (OAI-PMH, IIIF, library) may throttle large-scale
-  or automated harvesting; clients should harvest politely, honor Retry-After, and
-  contact the relevant service for bulk access.
-notes: Confirm per-service limits with each API's documentation; harvest responsibly.
+  Washington University in St. Louis publishes no institution-wide rate-limit policy, and there is
+  no central gateway whose limits would apply across its surfaces. Exactly one WashU-operated API
+  documents a concrete number: CIViC, the McDonnell Genome Institute knowledgebase, states an
+  anonymous ceiling of 3 requests per second measured over a five-minute window, burstable above
+  that rate for short periods and raised by a free API key. Everything else is either behind an
+  internal access request (the MuleSoft Anypoint enterprise APIs, whose limits are not published) or
+  is an OAI-PMH harvesting endpoint with a prose harvesting policy rather than a numeric limit.
+notes: >-
+  Only the CIViC limit is a published figure from the operator. The OAI-PMH entries record stated
+  policy, not a measured or documented rate. No limit here was inferred, and none was invented to
+  fill the table.
 sources:
-- https://raw.githubusercontent.com/api-evangelist/washington-university-in-st-louis/refs/heads/main/apis.yml
+- https://docs.civicdb.org/en/latest/api.html
+- https://openscholarship.wustl.edu/do/oai/?verb=Identify
+- https://data.wustl.edu/api-portal/api-portal-anypoint-access/
 responseCodes:
   throttled: 429
 limits:
-- name: Default
+- name: CIViC GraphQL — anonymous
+  api: CIViC GraphQL API
   scope: client
-  metric: requests-per-minute
-  limit: see service documentation
-  notes: No published global limit; large harvests may be rate-limited.
+  metric: requests-per-second
+  limit: 3
+  window: 5 minutes
+  burst: true
+  notes: >-
+    Documented by the operator as "rate-limited to 3 requests / second as measured over a 5 minute
+    window", which permits bursting above the rate briefly or sustaining it indefinitely.
+  source: https://docs.civicdb.org/en/latest/api.html
+- name: CIViC GraphQL — with API key
+  api: CIViC GraphQL API
+  scope: client
+  metric: requests-per-second
+  limit: raised
+  notes: >-
+    A free API key exempts the caller from the default anonymous ceiling. The operator does not
+    publish the keyed number, so none is recorded here. High-throughput and continuous consumers
+    are directed to CIViCpy rather than the live endpoint.
+  source: https://docs.civicdb.org/en/latest/api.html
+- name: OAI-PMH harvesting — WashU Scholarly Repository
+  api: WashU Scholarly Repository OAI-PMH
+  scope: client
+  metric: policy
+  limit: not published
+  notes: >-
+    No numeric limit. The Identify response carries a data policy: full content may not be
+    harvested by robots without prior written approval, while metadata is explicitly open to
+    commercial and non-commercial service providers.
+  source: https://openscholarship.wustl.edu/do/oai/?verb=Identify
+- name: WashU enterprise APIs (MuleSoft Anypoint)
+  api: WashU Enterprise Integration APIs
+  scope: client
+  metric: unknown
+  limit: not published
+  notes: >-
+    Access is granted per integrator through a ServiceNow request; any applicable policy is issued
+    with that grant and is not publicly documented.
+  source: https://data.wustl.edu/api-portal/api-portal-anypoint-access/
 policies:
 - name: Backoff Strategy
-  description: Exponential backoff with jitter; honor Retry-After; harvest during off-peak hours.
+  description: >-
+    Honor Retry-After on 429 and back off exponentially with jitter. For CIViC, stay under 3 req/s
+    unless holding a key, and prefer CIViCpy or a data release for bulk work.
+- name: Polite Harvesting
+  description: >-
+    OAI-PMH harvests should use resumption tokens, run off-peak, and respect the repository's
+    robots policy on full content.
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

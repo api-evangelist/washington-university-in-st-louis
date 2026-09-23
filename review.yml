@@ -3,8 +3,125 @@ name: Washington University in St. Louis
 description: Washington University in St. Louis public developer/API footprint review for APIs.json cataloging.
 url: https://raw.githubusercontent.com/api-evangelist/washington-university-in-st-louis/refs/heads/main/review.yml
 created: '2026-06-03'
-modified: '2026-06-03'
+modified: '2026-09-01'
 reviews:
+  - date: '2026-09-01'
+    rating: 3
+    summary: >-
+      Re-profiled under the API Evangelist university pipeline, which settles WHO OPERATES each
+      surface before saving anything. Two corrections and three genuine finds. Corrections: both
+      OAI-PMH research repositories were recorded in June as institution-owned on the strength of a
+      wustl.edu hostname, and DNS says otherwise — openscholarship.wustl.edu CNAMEs to
+      dcwustlmain.bepress.com (bepress Digital Commons, Identify adminEmail dc-support@elsevier.com)
+      and digitalcommonsdata.wustl.edu CNAMEs to www.data.mendeley.com (Elsevier Digital Commons
+      Data). Both are re-labelled x-operator tenant; neither relationship was deleted and no vendor
+      contract was saved. Finds: (1) CIViC, the Clinical Interpretation of Variants in Cancer
+      knowledgebase, is built and operated by The McDonnell Genome Institute at WashU School of
+      Medicine — its own documentation says so — and serves a genuinely public GraphQL API that
+      answered anonymous introspection with a complete 502-type schema, now saved as a probed
+      contract. (2) WashU operates its own Shibboleth SAML 2.0 identity provider, published as
+      signed metadata in InCommon with REFEDS R&S and SIRTFI assurance, scoped to wustl.edu.
+      (3) WashU Libraries is a DataCite direct member (symbol WUSTL, since 2018) with two registered
+      DOI repositories. Also noted: every WashU departmental site serves a live WordPress REST API;
+      courses.wustl.edu, which returned 200 in June, now fails to connect entirely; library.washu.edu
+      sits behind a Cloudflare bot challenge; and the institution has migrated its public identity
+      from wustl.edu to washu.edu. No open-data portal, no course/SIS API, no llms.txt, no
+      security.txt, no status page. Nothing was fabricated and no contract was taken from a gated
+      host — CNDA's XNAT OpenAPI path returns a login page under a 200, and it is recorded as a
+      soft-200 gate rather than counted.
+    endpoints:
+      - url: https://civicdb.org/api/graphql
+        status: 200
+        note: >-
+          POST introspection with no credential returned an 986,452-byte schema — 502 types, 112
+          root queries, 47 mutations. A bare GET returns 404; the endpoint is POST-only.
+      - url: https://civicdb.org/api/graphiql
+        status: 200
+        note: Interactive GraphiQL explorer, publicly reachable.
+      - url: https://docs.civicdb.org/en/latest/api.html
+        status: 200
+        note: >-
+          Operator documentation. States the bearer-token key scheme, a 3 req/sec over 5 min
+          anonymous rate limit, and that the V1 REST API is deprecated and no longer available.
+          Footer attributes CIViC to The McDonnell Genome Institute at WashU School of Medicine.
+      - url: https://mdq.incommon.org/entities/https%3A%2F%2Flogin.wustl.edu%2Fidp%2Fshibboleth
+        status: 200
+        note: >-
+          Signed SAML 2.0 metadata, application/samlmetadata+xml, 9,353 bytes, entityID
+          https://login.wustl.edu/idp/shibboleth, shibmd:Scope wustl.edu, REFEDS R&S + SIRTFI.
+      - url: https://api.datacite.org/providers/wustl
+        status: 200
+        note: >-
+          memberType direct_member, symbol WUSTL, created 2018-08-30, rorId
+          https://ror.org/01yc7t268. Two repositories: wustl.lib, wustl.becker-ir.
+      - url: https://api.ror.org/v2/organizations/01yc7t268
+        status: 200
+        note: ROR record; Funder ID 100007268, GRID grid.4367.6, ISNI 0000 0004 1936 9350.
+      - url: https://openscholarship.wustl.edu/do/oai/?verb=Identify
+        status: 200
+        note: >-
+          "WashU Scholarly Repository", OAI-PMH 2.0, earliest datestamp 2000-01-19. Nine metadata
+          formats including oai_etdms and oai_openaire. Tenant — CNAME to dcwustlmain.bepress.com.
+      - url: https://digitalcommonsdata.wustl.edu/oai?verb=Identify
+        status: 200
+        note: >-
+          "Digital Commons Data@Becker", OAI-PMH 2.0, prefixes datacite/oai_dc/oai_datacite.
+          Tenant — CNAME to www.data.mendeley.com.
+      - url: https://data.wustl.edu/api-portal/api-portal-anypoint-access/
+        status: 200
+        note: Enterprise API access is by ServiceNow request only; no public sign-up or spec.
+      - url: https://anypoint.mulesoft.com/exchange/portals/wustl/
+        status: 200
+        note: WashU MuleSoft Anypoint Exchange tenant portal landing page.
+      - url: https://data.wustl.edu/wp-json/
+        status: 200
+        note: >-
+          WordPress REST API, 467 routes, name "Data at WashU". The same surface answers on
+          washu.edu (337), source.washu.edu (429), ris.wustl.edu (327), registrar.washu.edu (310),
+          ai.washu.edu (318) and it.washu.edu (257).
+      - url: https://cnda.wustl.edu/xapi/swagger.json
+        status: 200
+        note: >-
+          SOFT-200 GATE. Returns the 23,725-byte XNAT login page at /app/template/Login.vm, not the
+          OpenAPI document. /data/version does the same. No contract taken.
+      - url: https://balsa.wustl.edu/api
+        status: 302
+        note: >-
+          Redirects to /login/auth. db.humanconnectome.org CNAMEs to proxy.nrg.wustl.edu and now
+          redirects here.
+      - url: https://ai.washu.edu/
+        status: 200
+        note: WashU AI hub — institutional AI posture and tooling pages, recorded as AIPolicy/AITooling.
+      - url: https://ris.wustl.edu/
+        status: 200
+        note: Research Infrastructure Services; docs.ris.wustl.edu redirects to washu.atlassian.net.
+      - url: https://github.com/WashU-IT-RIS
+        status: 200
+        note: >-
+          25 repositories, majority WashU-authored (Spack packages, GPFS maintenance, ColdFront
+          fork). A better GitHubOrganization pointer than github.com/wustl, which holds two forks.
+      - url: https://washu.edu
+        status: 200
+        note: Canonical public identity; https://wustl.edu 301s here.
+      - url: https://library.washu.edu/
+        status: 403
+        note: >-
+          Cloudflare bot challenge ("Just a moment..."). A finding about their edge — live, not
+          dead. catalog.wustl.edu behaves identically.
+      - url: https://courses.wustl.edu/
+        status: 000
+        note: >-
+          REGRESSION. Connection failure. This host returned 200 in the 2026-06-03 pass; it now
+          answers nothing. No course/registrar API existed there in either case.
+      - url: https://commons.datacite.org/providers/wustl
+        status: 429
+        note: DataCite commons UI rate-limits us; the API record is cited in its place.
+      - url: https://washu.edu/llms.txt
+        status: 404
+        note: No llms.txt on any WashU host.
+      - url: https://washu.edu/.well-known/security.txt
+        status: 404
+        note: No RFC 9116 security.txt.
   - date: '2026-06-03'
     rating: 2
     summary: >-

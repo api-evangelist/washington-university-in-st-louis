@@ -4,23 +4,32 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Washington University in St. Louis
 providerId: washington-university-in-st-louis
 created: '2026-06-03'
-modified: '2026-06-03'
-reconciled: false
+modified: '2026-09-01'
+generated: '2026-09-01'
+method: derived
+source: >-
+  https://docs.civicdb.org/en/latest/api.html and
+  https://data.wustl.edu/api-portal/api-portal-anypoint-access/, plus live probes 2026-09-01
+reconciled: true
 tags:
 - Education
 - Higher Education
 - University
 - Plans
 description: >-
-  Washington University in St. Louis is a non-commercial higher-education institution; its APIs are not sold
-  as a commercial product. Public APIs (library, repository, course, and open-metadata
-  interfaces) are offered free of charge, typically for non-commercial use. Most
-  administrative and identity APIs are not openly self-service and require institutional
-  affiliation, credentials, or federation membership rather than a paid plan.
+  Washington University in St. Louis is a non-commercial higher-education institution and sells no
+  API. Exactly one surface is free and self-service: CIViC, the McDonnell Genome Institute
+  knowledgebase, reads anonymously over GraphQL and issues a free API key to any signed-in user for
+  writes and a higher rate ceiling, with all content released CC0. The OAI-PMH endpoints on the two
+  Elsevier-operated research repositories harvest free and unauthenticated. Everything else is not
+  priced but gated: the MuleSoft Anypoint enterprise APIs are granted by internal ServiceNow
+  request to WashU integrators, and CNDA and BALSA require an account. Access here is a function of
+  institutional affiliation and federation membership, not payment.
 notes: >-
-  No published per-seat or per-call commercial pricing. "Free / Open" reflects open
-  public endpoints; "Affiliation / Credentialed" reflects access gated by institutional
-  identity rather than payment.
+  No published per-seat or per-call commercial pricing anywhere in the estate. "Free / Open"
+  reflects the genuinely open endpoints — CIViC's GraphQL API and the two OAI-PMH harvest
+  interfaces. "Affiliation / Credentialed" reflects access gated by institutional identity rather
+  than payment. No earlier claim of library or course APIs survived re-probing; neither exists.
 sources:
 - https://raw.githubusercontent.com/api-evangelist/washington-university-in-st-louis/refs/heads/main/apis.yml
 plans:
