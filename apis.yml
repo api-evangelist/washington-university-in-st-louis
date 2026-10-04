@@ -26,16 +26,19 @@ description: >-
 type: Index
 deliveryModel:
   model: saas
-  open_source: true
-  commercial: false
-  callable_host: true
+  license_evidence:
+    not_product:
+    - griffithlab/civic-v2
+  open_source: unknown
+  commercial: true
+  callable_host: false
   label: Hosted service · you call their endpoint
-  confidence: high
+  confidence: low
   source:
-  - probed
-  - graphql
-  generated: '2026-09-01'
-  method: probed
+  - pricing
+  - repository-not-product
+  generated: '2026-09-25'
+  method: derived
 accessModel:
   pricing: free
   onboarding: self-service
@@ -324,35 +327,20 @@ apis:
       - type: Registry
         url: https://api.ror.org/v2/organizations/01yc7t268
 
-  - aid: washington-university-in-st-louis:wordpress-rest
-    name: WashU WordPress REST APIs (CampusPress)
-    x-operator: tenant
-    description: >-
-      Every WashU departmental site probed exposes a live, unauthenticated WordPress REST API with a
-      complete route discovery document — data.wustl.edu ("Data at WashU", 467 routes),
-      source.washu.edu ("The Source", 429 routes), ris.wustl.edu ("Research Infrastructure
-      Services", 327 routes), registrar.washu.edu (310), ai.washu.edu ("Artificial Intelligence",
-      318), it.washu.edu (257) and washu.edu itself (337). These are content APIs the CMS ships
-      rather than APIs WashU designed, which is worth saying plainly, but they are unauthenticated,
-      machine-readable, self-describing and served from hosts the institution controls, and they are
-      in practice the only way to read WashU's public content programmatically. Operator is tenant,
-      not institution: data.wustl.edu CNAMEs to data.wustl.edu.c13858.campuspress.com, so the estate
-      runs on CampusPress managed hosting, and the REST contract itself is WordPress core's. The
-      sites, the content and the editorial are Washington University's; the engineering behind the
-      interface is not, and crediting the institution for it would be the same error this pipeline
-      exists to prevent. The relationship is recorded rather than dropped, because it is real and
-      it is the institution's most readable public surface.
-    humanURL: https://washu.edu/
-    baseURL: https://washu.edu/wp-json/
-    tags: [ Content, WordPress, REST, CMS, News, Discovery ]
+  - aid: washington-university-in-st-louis:washu-edu-website-wordpress-rest
+    name: Washington University in St. Louis Website (WordPress REST)
+    description: 'The public WordPress REST API (wp-json) of the Washington University in St. Louis website
+      at washu.edu: the route index of the site''s content management system, catalogued as one site surface
+      rather than as separate APIs.'
+    baseURL: https://washu.edu/wp-json
+    tags:
+    - WordPress
+    x-surface: platform-generated
     properties:
-      - type: APIReference
-        url: https://washu.edu/wp-json/
-      - type: Documentation
-        url: https://data.wustl.edu/wp-json/
-      - type: Documentation
-        url: https://source.washu.edu/wp-json/
-
+    - type: Documentation
+      url: https://washu.edu/wp-json
+    x-platform: wordpress
+    x-platform-surface: rest
   - aid: washington-university-in-st-louis:cnda
     name: CNDA — Central Neuroimaging Data Archive (XNAT)
     x-operator: institution
