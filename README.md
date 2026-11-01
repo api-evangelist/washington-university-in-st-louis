@@ -1,4 +1,4 @@
-# Washington University in St. Louis (washington-university-in-st-louis)
+# Washington University in St. Louis
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,95 +64,129 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Washington University in St. Louis (WashU) is a private research university in St. Louis, Missouri. This repository catalogs WashU's public developer and API footprint as an [APIs.json](https://apisjson.org) provider profile for the API Evangelist network, profiled under the **university pipeline** — which settles *who operates* each surface before recording it, because a university is a federation of buyers and most of what appears under its name is a vendor's contract.
+Washington University in St. Louis (WashU) is a private research university in St. Louis, Missouri, now presenting itself on washu.edu with the historic wustl.edu domain redirecting to it. Its programmable footprint is small but, unusually for this cohort, not empty and not entirely someone else's: the McDonnell Genome Institute at WashU School of Medicine builds and operates CIViC, the Clinical Interpretation of Variants in Cancer knowledgebase, whose public GraphQL API at civicdb.org/api/graphql answers anonymous introspection with a 502-type schema, 112 root queries and 47 mutations, documents a bearer-token API key and a 3 request/second rate limit, and is released CC0. WashU also operates its own Shibboleth SAML 2.0 identity provider, published as signed metadata in InCommon with REFEDS Research & Scholarship and SIRTFI assurance — machine readable institutional infrastructure almost no university in this cohort catalogues. Its enterprise integration APIs (Person, Financial, Supplier, Location, Academic, Organization) are real but wholly gated: they live in a MuleSoft Anypoint Exchange tenant and access is granted by internal ServiceNow request, with no public specification, endpoint or sign-up. Everything else is a relationship rather than WashU engineering. The two research repositories that harvest cleanly over OAI-PMH 2.0 — the WashU Scholarly Repository and Digital Commons Data@Becker — both sit on wustl.edu hostnames that CNAME straight to Elsevier infrastructure (bepress and Mendeley Data), so the data and the DOIs are WashU's and the contracts are Elsevier's. WashU is a DataCite direct member with two registered repositories. There is no public open-data portal, no documented course or SIS API, and courses.wustl.edu no longer answers at all.
 
-- APIs.json: https://raw.githubusercontent.com/api-evangelist/washington-university-in-st-louis/refs/heads/main/apis.yml
-- Run with Naftiko: https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=washington-university-in-st-louis-api-evangelist&utm_content=repo
+**Areas:** University · Higher Education · Education · United States · Missouri · Private Research University · Research Data · Research Repository · Identity Federation · Genomics · Bioinformatics · GraphQL
 
-## Type
+## Washington University in St. Louis on APIs.io
 
-- Index / Provider / 1st-Party — `x-type: university`, `x-category: Private Research University`
+Everything profiled for Washington University in St. Louis is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/washington-university-in-st-louis/](https://apis.io/providers/washington-university-in-st-louis/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (10)
 
-University, Higher Education, Education, United States, Missouri, Private Research University, Research Data, Research Repository, Identity Federation, Genomics, Bioinformatics, GraphQL, OAI-PMH, Shibboleth, DataCite, MuleSoft
+- [CIViC — Clinical Interpretation of Variants in Cancer](https://apis.io/apis/washington-university-in-st-louis/civic/) — A free, open, community-curated knowledgebase of the clinical significance of variants in cancer, built and operated by The McDonnell Genome Institute at…
+- [WashU Enterprise Integration APIs (MuleSoft Anypoint)](https://apis.io/apis/washington-university-in-st-louis/enterprise-apis/) — Institutional integration APIs published in a MuleSoft Anypoint Exchange tenant and described publicly as "Data at WashU", covering the Person, Financial,…
+- [WashU Shibboleth Identity Provider (InCommon)](https://apis.io/apis/washington-university-in-st-louis/incommon-idp/) — Washington University's own SAML 2.0 identity provider, entityID https://login.wustl.edu/idp/shibboleth, published as signed metadata through the InCommon…
+- [WashU Scholarly Repository (OAI-PMH)](https://apis.io/apis/washington-university-in-st-louis/open-scholarship/) — The university's institutional repository, "WashU Scholarly Repository", serving a live OAI-PMH 2.0 interface with nine metadata formats including oai_etdms…
+- [Digital Commons Data@Becker (Research Data Repository)](https://apis.io/apis/washington-university-in-st-louis/digital-commons-data/) — The Becker Medical Library and School of Medicine research data repository, publishing an API documentation page and a live OAI-PMH 2.0 endpoint that serves…
+- [DataCite Membership — Washington University in St. Louis Libraries](https://apis.io/apis/washington-university-in-st-louis/datacite/) — Washington University in St. Louis Libraries is a DataCite direct member, symbol WUSTL, registered 2018-08-30, region AMER, and linked from DataCite's own…
+- [ROR Registration — Washington University in St. Louis](https://apis.io/apis/washington-university-in-st-louis/ror/) — The institution's Research Organization Registry record, https://ror.org/01yc7t268, carrying its display name, multilingual name variants, the WUSTL…
+- [Washington University in St. Louis Website (WordPress REST)](https://apis.io/apis/washington-university-in-st-louis/washu-edu-website-wordpress-rest/) — The public WordPress REST API (wp-json) of the Washington University in St. Louis website at washu.edu: the route index of the site's content management…
+- [CNDA — Central Neuroimaging Data Archive (XNAT)](https://apis.io/apis/washington-university-in-st-louis/cnda/) — WashU's neuroimaging data archive, running XNAT — imaging informatics software that originated at the university's own Neuroinformatics Research Group.…
+- [BALSA Neuroimaging Database](https://apis.io/apis/washington-university-in-st-louis/balsa/) — A WashU-operated database of neuroimaging scenes and datasets at balsa.wustl.edu, and now the destination of db.humanconnectome.org, which CNAMEs to…
 
-## Surfaces, by who operates them
+### Published properties
 
-Every entry carries an `x-operator`. It answers a different question than `method:` does: `method:` says how *we* came to hold an artifact, `x-operator` says **who runs the thing the artifact describes**.
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-### `institution` — Washington University's own
+#### GraphQL (1)
 
-- **CIViC — Clinical Interpretation of Variants in Cancer** — the one genuinely public, WashU-engineered API. A GraphQL knowledgebase of the clinical significance of cancer variants, built and operated by The McDonnell Genome Institute at WashU School of Medicine and released CC0. 502 types, 112 root queries, 47 mutations; anonymous reads, optional free bearer-token key, 3 req/sec documented.
-  - Endpoint: https://civicdb.org/api/graphql · Explorer: https://civicdb.org/api/graphiql
-  - Docs: https://docs.civicdb.org/en/latest/api.html · Source: https://github.com/griffithlab/civic-v2
-  - Schema: [graphql/washington-university-in-st-louis-civic-schema.graphql](graphql/washington-university-in-st-louis-civic-schema.graphql) — printed from live introspection, `method: probed`
-- **WashU Enterprise Integration APIs (MuleSoft Anypoint)** — Person, Financial, Supplier, Location, Academic, Organization. WashU's engineering, MuleSoft's delivery, and entirely closed: access by ServiceNow request, no public spec, endpoint or sign-up.
-  - https://data.wustl.edu/api-portal/ · https://data.wustl.edu/api-portal/api-portal-anypoint-access/
-- **CNDA (XNAT)** and **BALSA** — real WashU research-data platforms, both auth-walled. CNDA returns its login page under HTTP 200 even at `/xapi/swagger.json`, which is a soft-200 gate, so no contract was taken from either.
+GraphQL schemas.
 
-### `federation` — shared by definition, and theirs
+- [CIViC GraphQL API — Washington University in St. Louis](https://apis.io/graphqls/washington-university-in-st-louis/washington-university-in-st-louis-civic/)
 
-- **WashU Shibboleth Identity Provider** — entityID `https://login.wustl.edu/idp/shibboleth`, published as signed SAML 2.0 metadata in InCommon with REFEDS Research & Scholarship and SIRTFI assurance, scoped to `wustl.edu`. The strongest institution-operated machine-readable surface WashU has.
-  - https://mdq.incommon.org/entities/https%3A%2F%2Flogin.wustl.edu%2Fidp%2Fshibboleth
+#### JSON-LD (1)
 
-### `tenant` — WashU's data, someone else's contract
+Linked-data contexts for the provider's vocabulary.
 
-- **WashU Scholarly Repository** — OAI-PMH 2.0, nine metadata formats. `openscholarship.wustl.edu` CNAMEs to `dcwustlmain.bepress.com`; Identify gives `dc-support@elsevier.com`. bepress Digital Commons (Elsevier).
-- **Digital Commons Data@Becker** — OAI-PMH 2.0, datacite/oai_dc/oai_datacite. `digitalcommonsdata.wustl.edu` CNAMEs to `www.data.mendeley.com`. Elsevier Digital Commons Data (Mendeley Data).
-- **WashU WordPress REST APIs** — every departmental site serves a live, unauthenticated WP REST API with a full route document (data.wustl.edu 467 routes, source.washu.edu 429, washu.edu 337). `data.wustl.edu` CNAMEs to CampusPress; the contract is WordPress core's and the hosting is a vendor's. The content and editorial are WashU's, and in practice this is the only way to read WashU's public content programmatically.
+- [Washington University In St Louis Context](https://apis.io/jsonld/washington-university-in-st-louis/washington-university-in-st-louis-context/)
 
-Both were recorded as institution-owned in the June 2026 profile on the strength of a `wustl.edu` label. DNS resolution corrected that. The relationships were kept; only the attribution changed.
+#### Security (2)
 
-### `registry` — memberships, which are facts about them
+Authentication, trust centre, and vulnerability disclosure.
 
-- **DataCite** — direct member, symbol `WUSTL`, since 2018-08-30, with two registered DOI repositories (`wustl.lib`, `wustl.becker-ir`).
-- **ROR** — https://ror.org/01yc7t268 (Funder ID 100007268, GRID grid.4367.6, ISNI 0000 0004 1936 9350).
+- [Washington University In St Louis Authentication](https://apis.io/security/washington-university-in-st-louis/washington-university-in-st-louis-authentication/)
+- [Washington University In St Louis Domain Security](https://apis.io/security/washington-university-in-st-louis/washington-university-in-st-louis-domain-security/)
 
-## Domain standard conformance (education regime)
+#### Plans and pricing (1)
 
-Conformant, with live evidence: **saml**, **shibboleth**, **oai-pmh** (two endpoints), **datacite**. Explicitly not found, with reasons recorded: crossref, orcid, scim, lti, oneroster, ed-fi, caliper, qti.
+Published plans, tiers and prices.
 
-- [conformance/washington-university-in-st-louis-conformance.yml](conformance/washington-university-in-st-louis-conformance.yml)
+- [Washington University In St Louis Plans Pricing](https://apis.io/plans/washington-university-in-st-louis/washington-university-in-st-louis-plans-pricing/)
 
-## Artifacts
+#### Rate limits (1)
 
-- GraphQL: [graphql/](graphql/) — CIViC schema + overview
-- Authentication: [authentication/washington-university-in-st-louis-authentication.yml](authentication/washington-university-in-st-louis-authentication.yml)
-- Conformance: [conformance/washington-university-in-st-louis-conformance.yml](conformance/washington-university-in-st-louis-conformance.yml)
-- Plans & Pricing: [plans/washington-university-in-st-louis-plans-pricing.yml](plans/washington-university-in-st-louis-plans-pricing.yml)
-- Rate Limits: [rate-limits/washington-university-in-st-louis-rate-limits.yml](rate-limits/washington-university-in-st-louis-rate-limits.yml)
-- FinOps: [finops/washington-university-in-st-louis-finops.yml](finops/washington-university-in-st-louis-finops.yml)
-- JSON-LD: [json-ld/washington-university-in-st-louis-context.jsonld](json-ld/washington-university-in-st-louis-context.jsonld)
-- Domain Security: [security/washington-university-in-st-louis-domain-security.yml](security/washington-university-in-st-louis-domain-security.yml)
-- Review: [review.yml](review.yml)
+Published request limits.
 
-## Timestamps
+- [Washington University In St Louis Rate Limits](https://apis.io/rate-limits/washington-university-in-st-louis/washington-university-in-st-louis-rate-limits/)
 
-- Created: 2026-06-03
-- Modified: 2026-09-01
+#### FinOps (1)
 
-## Common Properties
+What the API costs to run, by operation.
 
-- Website: https://washu.edu (https://wustl.edu 301s here — the institution now presents as WashU)
-- GitHub Organization: https://github.com/WashU-IT-RIS · GitHub: https://github.com/wustl
-- LinkedIn: https://www.linkedin.com/school/washington-university-in-st-louis/
-- Developer Portal: https://data.wustl.edu/api-portal/
-- Research Computing: https://ris.wustl.edu/ (user docs at docs.ris.wustl.edu, a meta-refresh into washu.atlassian.net — deliberately not emitted as a `Documentation` pointer, because the audit would then read `atlassian.net` as a domain WashU owns)
-- AI Policy / AI Tooling: https://ai.washu.edu/ · https://ai.washu.edu/tools/
-- Course Catalog: https://registrar.washu.edu/
-- Blog: https://source.washu.edu/
+- [Washington University In St Louis Finops](https://apis.io/finops/washington-university-in-st-louis/washington-university-in-st-louis-finops/)
 
-## Notes
+## Where to find this API
 
-All URLs were re-probed on 2026-09-01. Three of them are not plain 200s and are recorded as findings rather than quietly dropped:
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-- `https://library.washu.edu/` and `https://catalog.wustl.edu/` return **403** behind a Cloudflare bot challenge. That is a fact about their edge, not about their publishing — live, not dead.
-- `https://courses.wustl.edu/` now **fails to connect entirely**. It returned 200 in the 2026-06-03 pass. No course or SIS API existed there in either case.
-- `https://www.linkedin.com/school/...` returns **999**, LinkedIn's anti-bot code. The page exists.
+- [Website](https://washu.edu)
+- [Documentation](https://data.wustl.edu/api-portal/)
+- [API reference](https://docs.civicdb.org/en/latest/api.html)
+- [Support](https://it.washu.edu/)
+- [Blog](https://source.washu.edu/)
+- [Privacy policy](https://registrar.washu.edu/student-records-resources/ferpa-overview/)
+- [GitHub](https://github.com/WashU-IT-RIS)
 
-No open data portal, no documented course/SIS API, no `llms.txt`, no `/.well-known/security.txt` and no status page were found on any WashU host. No endpoints were fabricated, and no contract was saved for any surface whose operator is a vendor.
+## API Evangelist rating
 
-## Maintainers
+**Kin Score 38.5** — thin · rubric 0.24.0 · scored 2026-10-17
 
-- Kin Lane — kin@apievangelist.com
+| Facet | Score |
+|---|---|
+| Discoverability | 53.6 |
+| Contract quality | 48.6 |
+| Contract governance | 0.0 |
+| Operational transparency | 34.2 |
+| Developer ergonomics | 52.4 |
+| Access clarity | 28.9 |
+
+**Agent readiness 18.0** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 20.6** — Education & Research
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/washington-university-in-st-louis/](https://apis.io/providers/washington-university-in-st-louis/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Washington University in St. Louis: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/washington-university-in-st-louis/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
